@@ -1,3 +1,3 @@
 
 #!/bin/bash
-cut -c 1 |paste -s -d ''
+cut -b 1 | tr -d '\n' | uniq
