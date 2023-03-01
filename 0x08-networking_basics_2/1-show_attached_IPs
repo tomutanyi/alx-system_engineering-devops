@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# prints actiive IPs .
+
+ifconfig | grep 'inet addr' | cut -d':' -f2 | cut -d' ' -f1
