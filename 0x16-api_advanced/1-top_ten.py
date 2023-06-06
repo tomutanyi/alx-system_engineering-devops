@@ -1,29 +1,21 @@
 #!/usr/bin/python3
-
-"""
-query the Reddit
-"""
-
-from requests import get
-from sys import argv
+"""Function to print hot posts on a given Reddit subreddit."""
+import requests
 
 
-def top_ten(subreddit: str) -> None:
-    """
-    function
-    """
+def top_ten(subreddit):
+    """Print."""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
-        "User-Agent": "Marvel",
-        "X-Forwared-For": "Phil"
+        "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
     }
-
-    request_url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-
-    try:
-        response = get(request_url, headers=headers,
-                       allow_redirects=False).json()
-        data = response['data']['children']
-        [print(post['data']['title']) for post in data[:10]]
-    except Exception:
+    params = {
+        "limit": 10
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
         print("None")
-
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
