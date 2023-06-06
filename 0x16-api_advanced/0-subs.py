@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Query a subreddit 
+Query a subreddit
 """
 
 from requests import get
